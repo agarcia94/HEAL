@@ -1,0 +1,41 @@
+Format: lipo/tri/bloodcells/glucose/vitamin 
+All integers
+(mg/dL): milligrams per deciliter
+
+Lipo:
+	input range: (mg/dL) 1 - infinity 
+	output: 
+		Healthy: less than 14 
+		Borderline Risk: 14-30
+		High Risk: 31-50
+		Very High Risk: greater than 50
+
+Tri: 
+	input range: (mg/dL) 1 - Infinity 
+	output: 
+		Healthy: less than 200 
+		Borderline Risk: 200-399
+		High Risk: 400-450
+		Very High Risk: Greater than 450
+
+bloodcells: (red blood count) 
+	input range: 1 - infinity (calls/mcL)
+	output: 
+		Low: less than 4 
+		Normal: 4-6
+		High: more than 6
+
+Glucose: 
+	input range: 1-infinity (mg/dL) 
+	output: 
+		Low: less than 100
+		Normal: 100-125
+		High: 126-199
+		Diabetes: 200+
+
+Vitamin: (vitmain D) 
+	input range: 0-infinity (ng/dL) 
+	output: 
+		low: 0-41
+		normal:41-149
+		toxic: 150+

@@ -1,0 +1,23 @@
+String lipoproteins
+String triglycerides
+String bloodCells
+String glucose
+String vitamin
+
+Good
+Good
+Good
+Good
+Good
+
+Good
+Normal
+Normal
+Normal
+Bad
+
+Bad
+Bad
+Bad
+Bad
+Bad
