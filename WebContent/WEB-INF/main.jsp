@@ -11,8 +11,16 @@
 <body>
 	<div class = "container">
 		<div class="page-header">
-        	<h1>Blood Check Analysis </h1>
-      	</div>
+        	<h1>Blood Check Analysis  <small>Welcome ${username}!</small></h1>        	
+        </div>
+      	
+      	<form action = "MainController" method = "post" class = "form-horizontal">
+      		<p class = "text-justify">
+      			<strong>Verbally state what you would like to do today ${username}</strong>
+      		</p>
+      		
+      		<input type = "submit" value ="Start voice recognition" class = "btn btn-primary">
+      	</form>
 	</div>
 </body>
 </html>
