@@ -1,0 +1,5 @@
+/**
+ * 
+ */
+
+var helloWorld = "Hello World";

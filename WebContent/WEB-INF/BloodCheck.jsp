@@ -8,28 +8,42 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Blood Check Input</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<title>HEAL - Blood Check</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" 
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" 
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" 
+	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" 
+	crossorigin="anonymous">
+
+
 </head>
 <body>
-	<center>
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<ul class="nav nav-pills">
+				<li><a class="navbar-brand" href="http://localhost:8080/Start/MainController">HEAL</a></li>
+				<li><a href="http://localhost:8080/Start/DisplayController">Display</a></li>
+				<li class="active"><a href="http://localhost:8080/Start/BloodCheckController">Blood Check</a></li>
+				<li><a href="http://localhost:8080/Start/CommunicationController">Communication</a></li>
+			</ul>
+		</nav>
+	</div>
 
-	<p> Please Attach Blood Sample <p>
-	<form action = "BloodCheckController" method = "post" enctype = "multipart/form-data">
-		<input type = "file" name = "blood_file"> <br>
-		<br>
-		<input type = "submit" value ="Submit">
-	</form>
-	</center><br/>
-
-</body>
-
-<body>
-	<center>
-		<a href = "MainController">Back</a><br/>                
-		<a href = "LoginController">Logout</a>
-	</center>
-</body>
-
-
+	<div class="container">
+		<div class="row">
+			<form action = "BloodCheckController" method = "post" enctype = "multipart/form-data">
+				<label for="blood_file">Attach blood sample</label>
+				<input type = "file" name = "blood_file"> <br>
+				<br>
+				<input type = "submit" value ="Submit">
+			</form>
+		</div>
+	</div>
 </html>

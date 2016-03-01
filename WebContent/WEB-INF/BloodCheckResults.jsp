@@ -5,9 +5,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Blood Check Results</title>
+<title>HEAL - Blood Check Results</title>
 </head>
 <body>
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<ul class="nav nav-pills">
+				<li><a class="navbar-brand" href="http://localhost:8080/Start/MainController">HEAL</a></li>
+				<li><a href="http://localhost:8080/Start/DisplayController">Display</a></li>
+				<li><a href="http://localhost:8080/Start/BloodCheckController">Blood Check</a></li>
+				<li class="active"><a href="http://localhost:8080/Start/CommunicationController">Communication</a></li>
+			</ul>
+		</nav>
+	</div>
+
 	<p>
 	${current_profile.lipoproteins} <br/>
 	${current_profile.triglycerides} <br/>
@@ -16,9 +27,7 @@
 	${current_profile.vitamin } <br/>
 	</p><br/>
 	
-	<center>
-		<a href = "LoginController">Logout</a>
-		<a href = "MainController">Back to Portal</a>
-	</center>
+
+	<a href = "DisplayController">Back to Portal</a>
 </body>
 </html>

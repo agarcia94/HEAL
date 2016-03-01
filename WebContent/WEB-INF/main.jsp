@@ -11,7 +11,7 @@
 <body>
 	<div class = "container">
 		<div class="page-header">
-        	<h1>Blood Check Analysis  <small>Welcome ${username}!</small></h1>        	
+        	<h1>HEAL: Blood Check Analysis  <small>Welcome ${username}!</small></h1>        	
         </div>
       	
       	<form action = "MainController" method = "post" class = "form-horizontal">

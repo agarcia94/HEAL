@@ -55,5 +55,7 @@ public class CommunicationController extends HttpServlet {
 		EmailSender emailSender = new EmailSender();
 		String sendAddress = (String) request.getParameter("emailAddress");
 		emailSender.send(sendAddress);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/main.jsp");
+		dispatcher.forward(request, response);
 	}
 }

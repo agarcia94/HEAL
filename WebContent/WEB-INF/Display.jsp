@@ -6,14 +6,35 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" 
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" 
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" 
+	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" 
+	crossorigin="anonymous">
+
+
+<title>HEAL - Display</title>
 </head>
 <body>
-	<form action = "DisplayController" method = "get" class = "form-inline">
-		<p>
-			<strong>${hello}</strong>
-			<strong>${x}</strong>
-		</p>
-	</form>
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<ul class="nav nav-pills">
+				<li><a class="navbar-brand" href="http://localhost:8080/Start/MainController">HEAL</a></li>
+				<li class="active"><a href="http://localhost:8080/Start/DisplayController">Display</a></li>
+				<li><a href="http://localhost:8080/Start/BloodCheckController">Blood Check</a></li>
+				<li><a href="http://localhost:8080/Start/CommunicationController">Communication</a></li>
+			</ul>
+		</nav>
+	</div>
+	<div class="container">
+		<p>Hello world</p>
+	</div>
 </body>
 </html>
