@@ -53,9 +53,9 @@ public class BloodStat {
 	
 	@Override
 	public String toString() {
-		String result = "";
+		String result = "Blood Stat\n";
 		for (String key: stats.keySet()) {
-			result += key + ": " + stats.get(key) + "\n";
+			result += key + ": " + stats.get(key) + " mL\n";
 		}
 		return result;
 	}

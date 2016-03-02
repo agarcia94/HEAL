@@ -60,7 +60,7 @@ public class MainController extends HttpServlet {
 				
 		if(recordVoice.getVoiceResult().contains("blood") || recordVoice.getVoiceResult().contains("check"))
 			//request.getRequestDispatcher( "/BloodCheckController" ).forward(request, response);
-			request.getRequestDispatcher( "/WEB-INF/BloodCheck.jsp" ).forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/BloodCheck.jsp" ).forward(request, response);
 		else{
 			System.out.println("Invalid voice recognized. Try again.");
 			doPost(request, response);

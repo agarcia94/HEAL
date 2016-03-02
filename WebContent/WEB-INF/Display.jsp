@@ -35,6 +35,10 @@
 	</div>
 	<div class="container">
 		<p>Hello world</p>
+		
+		<form action="DisplayController" method="post">
+			<input type="submit"/>
+		</form>
 	</div>
 </body>
 </html>

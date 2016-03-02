@@ -16,9 +16,9 @@ public class EmailSender {
 		
 	}
 	
-	public void send(String input) {
+	public void send(String emailTo, String emailMessage) {
 		// Recipient's email ID needs to be mentioned.
-	    String to = input;//change accordingly
+	    String to = emailTo;//change accordingly
 
 	    // Sender's email ID needs to be mentioned
 	    String from = "csula437winter2016@gmail.com";//change accordingly
@@ -58,8 +58,7 @@ public class EmailSender {
 	       message.setSubject("Email from HEAL");
 
 	       // Now set the actual message
-	       message.setText("Hello, this is sample for to check send "
-	          + "email using JavaMailAPI ");
+	       message.setText(emailMessage);
 
 	       // Send message
 	       Transport.send(message);

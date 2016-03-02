@@ -40,8 +40,11 @@
 				<label for="emailAddress">To email your results, enter the email address here</label>				
 				<form action="CommunicationController" method="post">
 					<input type="text" value="Example@email.com" name="emailAddress"/>
+					<input type="hidden" value="${emailMessage }" name="emailMessage"/>
 					<input type="submit" value="Send email"/>
 				</form>
+				<h3>Your message:</h3>
+				<p>${ emailMessage }</p>
 			</div>
 			<div class="col-md-6">
 				<h3>Your results</h3>

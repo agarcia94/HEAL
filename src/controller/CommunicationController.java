@@ -42,7 +42,11 @@ public class CommunicationController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("BloodStatResult", new BloodStat());
+		BloodStat b = new BloodStat();
+		String message = "Greetings,\n\nThis a message from HEAL Blood check system.\n\nUser x's " 
+							+ b.toString() + "\n\nHave a nice day human,\nHEAL";		
+		request.setAttribute("BloodStatResult", b);
+		request.setAttribute("emailMessage", message);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Communication.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -54,8 +58,9 @@ public class CommunicationController extends HttpServlet {
 		// TODO Auto-generated method stub
 		EmailSender emailSender = new EmailSender();
 		String sendAddress = (String) request.getParameter("emailAddress");
-		emailSender.send(sendAddress);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/main.jsp");
+		String sendMessage = (String) request.getParameter("emailMessage");
+		emailSender.send(sendAddress, sendMessage);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Display.jsp");
 		dispatcher.forward(request, response);
 	}
 }
