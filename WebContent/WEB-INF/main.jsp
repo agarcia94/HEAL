@@ -11,16 +11,63 @@
 <body>
 	<div class = "container">
 		<div class="page-header">
-        	<h1>HEAL: Blood Check Analysis  <small>Welcome ${username}!</small></h1>        	
+        	<h1>HEAL: Blood Check Analysis  <small>Welcome!</small></h1>        	
+        </div>
+        
+        <div class = "row">
+        	<div class="col-md-6">
+        		<form action = "MainController" method = "post" class = "form-horizontal">
+      				<p class = "text-justify">
+      					<strong>Verbally state what you would like to do today</strong>
+      				</p>
+      		
+      				<input type = "submit" value ="Start voice recognition" class = "btn btn-primary">
+      			</form>
+        	</div>
+        	
+        	<div class="col-md-6">
+        		<p class = "help-block">
+      				Wait three seconds before speaking as the system is getting configured. This also<br>
+      				applies if voice recognition needs to restart due to an invalid voice command.
+      			</p>
+        	</div>
+        </div>
+        
+        <div class = "row">
+        	<div class = "col-md-6">
+        		<p class= "lead">${result }</p>
+        	</div>
         </div>
       	
-      	<form action = "MainController" method = "post" class = "form-horizontal">
-      		<p class = "text-justify">
-      			<strong>Verbally state what you would like to do today ${username}</strong>
-      		</p>
-      		
-      		<input type = "submit" value ="Start voice recognition" class = "btn btn-primary">
-      	</form>
+
+      	
+
+      	
+      	
+      	<!--  
+      		<c:if test = "${capture_start }">
+     			<p class = "text-justify">
+      				<strong>Capture starting, wait about three seconds before speaking</strong>
+      			</p>
+      		</c:if>
+      	-->
+
+      	
+      	 
+
+      
+
+      	
+      	<!--  
+      	    <c:if test="${!validVoice }">
+      			<p class = "text-justify">
+      				<strong>Restarting the voice capture...</strong>
+      			</p>
+      		</c:if>
+      	-->
+
+
+	
 	</div>
 </body>
 </html>

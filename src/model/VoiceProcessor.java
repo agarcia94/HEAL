@@ -1,11 +1,11 @@
 package model;
 
-import java.util.Scanner;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+
 public class VoiceProcessor {
 	
 	private String voiceResult;
@@ -14,14 +14,13 @@ public class VoiceProcessor {
 	
 	public VoiceProcessor(){
 		voiceResult = "";
-		capture =null;
+		capture = null;
 		recognizer = null;
 	}
 	
 	public void captureAudio(){
-//		Player player = null;
-		Scanner sc = new Scanner(System.in);
-		int choice;
+//		Scanner sc = new Scanner(System.in);
+//		int choice;
 		
 		Configuration configuration = new Configuration();
 		
@@ -38,26 +37,6 @@ public class VoiceProcessor {
 			capture = new VoiceCapture();
 			capture.start();
 			//System.out.println("Please enter your choice: \n1: capture\n2: play");
-				
-					capture.stopped = true;
-					if(!capture.readyToPlay){
-						System.out.println("Processing voice...");
-					}
-					
-					while(!capture.readyToPlay){
-						System.out.println("");
-					}
-					 
-					recognizer.startRecognition(new ByteArrayInputStream(capture.getSound()));
-					SpeechResult printResult =recognizer.getResult();     
-					System.out.format("Hypothesis: %s\n", printResult.getHypothesis());
-					setVoiceResult(printResult.getHypothesis());
-					System.out.println(voiceResult);
-					
-					recognizer.stopRecognition();
-
-				
-
 			
 		}catch (IOException e){
 			e.printStackTrace();
@@ -65,7 +44,22 @@ public class VoiceProcessor {
 	}
 	
 	public void stopCapture(){
+		capture.stopped = true;
+		if(!capture.readyToPlay){
+			System.out.println("Processing voice...");
+		}
 		
+		while(!capture.readyToPlay){
+			System.out.println("");
+		}
+		 
+		recognizer.startRecognition(new ByteArrayInputStream(capture.getSound()));
+		SpeechResult printResult =recognizer.getResult();     
+		System.out.format("Hypothesis: %s\n", printResult.getHypothesis());
+		setVoiceResult(printResult.getHypothesis());
+		System.out.println(voiceResult);
+		
+		recognizer.stopRecognition();
 	}
 	
 	public String getVoiceResult() {

@@ -72,7 +72,7 @@ public class BloodCheckController extends HttpServlet
 		BloodProfile current = new BloodProfile (currentUser,lipo,tri,cells,glu,vit);
 		getServletContext().setAttribute("current_profile",current);
 		
-		request.getRequestDispatcher("/WEB-INF/BloodCheckResults.jsp" ).forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/Display.jsp" ).forward(request, response);
 	}	
 
 }

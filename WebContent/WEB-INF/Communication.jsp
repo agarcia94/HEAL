@@ -26,10 +26,10 @@
 	<div class="container">
 		<nav class="navbar navbar-default">
 			<ul class="nav nav-pills">
-				<li><a class="navbar-brand" href="http://localhost:8080/Start/MainController">HEAL</a></li>
-				<li><a href="http://localhost:8080/Start/DisplayController">Display</a></li>
-				<li><a href="http://localhost:8080/Start/BloodCheckController">Blood Check</a></li>
-				<li class="active"><a href="http://localhost:8080/Start/CommunicationController">Communication</a></li>
+				<li><a class="navbar-brand" href="http://localhost:8080/HEAL/MainController">HEAL</a></li>
+				<li><a href="http://localhost:8080/HEAL/DisplayController">Display</a></li>
+				<li><a href="http://localhost:8080/HEAL/BloodCheckController">Blood Check</a></li>
+				<li class="active"><a href="http://localhost:8080/HEAL/CommunicationController">Communication</a></li>
 			</ul>
 		</nav>
 	</div>

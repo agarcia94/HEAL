@@ -16,6 +16,7 @@
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
 	crossorigin="anonymous">
 
+
 <!-- Optional theme -->
 <link rel="stylesheet" 
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" 
@@ -28,10 +29,10 @@
 	<div class="container">
 		<nav class="navbar navbar-default">
 			<ul class="nav nav-pills">
-				<li><a class="navbar-brand" href="http://localhost:8080/Start/MainController">HEAL</a></li>
-				<li><a href="http://localhost:8080/Start/DisplayController">Display</a></li>
-				<li class="active"><a href="http://localhost:8080/Start/BloodCheckController">Blood Check</a></li>
-				<li><a href="http://localhost:8080/Start/CommunicationController">Communication</a></li>
+				<li><a class="navbar-brand" href="http://localhost:8080/HEAL/MainController">HEAL</a></li>
+				<li><a href="http://localhost:8080/HEAL/DisplayController">Display</a></li>
+				<li class="active"><a href="http://localhost:8080/HEAL/BloodCheckController">Blood Check</a></li>
+				<li><a href="http://localhost:8080/HEAL/CommunicationController">Communication</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -39,10 +40,19 @@
 	<div class="container">
 		<div class="row">
 			<form action = "BloodCheckController" method = "post" enctype = "multipart/form-data">
-				<label for="blood_file">Attach blood sample</label>
-				<input type = "file" name = "blood_file"> <br>
+				
+				<!-- <label for="blood_file">Attach blood sample</label> -->
+				<!--  
+				<input type = "file" name = "blood_file" class = "form-horizontal">
+				-->
+				
+				<span class="btn btn-default btn-file">
+					<label for="blood_file">Attach blood sample</label>
+    				<input type="file" name = "blood_file">
+				</span>
+				
 				<br>
-				<input type = "submit" value ="Submit">
+				<input type = "submit" value ="Submit" class = "btn btn-primary">
 			</form>
 		</div>
 	</div>
