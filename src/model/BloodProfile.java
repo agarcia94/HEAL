@@ -223,4 +223,9 @@ public class BloodProfile {
 		this.vit = vit;
 	}
 	
+	//to be implemented
+	public String toString(){
+		return "";
+	}
+	
 }

@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+
+import model.BloodProfile;
 import model.BloodStat;
 import model.EmailSender;
 
@@ -32,16 +34,23 @@ public class CommunicationController extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		// TODO Auto-generated method stub
+		
+//		if(this.getServletContext().getAttribute("current_profile") == null)
+//		{
+//			String user = "Andrew";
+//			this.getServletContext().setAttribute("current_profile", user);
+//		} 
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BloodStat b = new BloodStat();
+		//BloodStat b = new BloodStat();
+		BloodProfile b = (BloodProfile) (this.getServletContext().getAttribute("current_profile"));
 		String message = "Greetings,\n\nThis a message from HEAL Blood check system.\n\nUser x's " 
 							+ b.toString() + "\n\nHave a nice day human,\nHEAL";		
-		request.setAttribute("BloodStatResult", b);
+		request.setAttribute("BloodStatResult", this.getServletContext().getAttribute("current_profile"));
 		request.setAttribute("emailMessage", message);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Communication.jsp");
 		dispatcher.forward(request, response);
