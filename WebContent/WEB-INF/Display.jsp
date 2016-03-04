@@ -34,11 +34,29 @@
 		</nav>
 	</div>
 	<div class="container">
-		<p>Hello world</p>
-		
-		<form action="DisplayController" method="post">
-			<input type="submit" class = "btn btn-primary">
-		</form>
+		<table class="table">
+			<tr>
+				<th>lipoproteins (mL)</th>
+				<th>triglycerides (mL)</th>
+				<th>bloodCells (mL)</th>
+				<th>glucose (mL)</th>
+				<th>vitamin (mL)</th>
+				<th>links</th>
+			</tr>
+			<c:forEach items="${bloodProfiles}" var="bloodProfile">
+				<tr>
+					<td>${bloodProfile.lipo}</td>
+					<td>${bloodProfile.tri}</td>
+					<td>${bloodProfile.rbc }</td>
+					<td>${bloodProfile.glu }</td>
+					<td>${bloodProfile.vit }</td>
+					<td><form action="DisplayController" method="post">
+							<input type="hidden" value="bloodProfile" name="bloodProfile" id="bloodProfile"/>
+							<input type="submit" value="Communicate" class="btn btn-primary"/>
+						</form>
+					</td>
+			</c:forEach>
+		</table>
 	</div>
 </body>
 </html>

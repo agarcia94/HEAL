@@ -8,7 +8,7 @@ Lipo:
 		Healthy: less than 14 
 		Borderline Risk: 14-30
 		High Risk: 31-50
-		Very High Risk: greater than 50
+		Very High Risk: greater than 50 
 
 Tri: 
 	input range: (mg/dL) 1 - Infinity 

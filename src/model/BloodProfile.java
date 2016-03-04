@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 //by Raymond Wu
 
 public class BloodProfile {
@@ -19,8 +21,21 @@ public class BloodProfile {
 	int glu;
 	int vit;
 	
-	
-	
+	public BloodProfile()
+	{
+		this.userID = generateInt(0, 200);
+		this.lipo = generateInt(0, 200);
+		this.tri = generateInt(0, 200);
+		this.rbc = generateInt(0, 200);
+		this.glu = generateInt(0, 200);
+		this.vit = generateInt(0, 200);
+		
+		this.lipoproteins = this.generateLipo(lipo);
+		this.triglycerides = this.generateTri(tri);
+		this.bloodCells = this.generateRBC(rbc);
+		this.glucose = this.generateGlucose(glu);
+		this.vitamin = this.generateVitamin(vit);	
+	}
 	
 	public BloodProfile(int userID,int lipo, int tri, int rbc, int glucose, int vitamin)
 	{
@@ -38,7 +53,7 @@ public class BloodProfile {
 		this.vit = vitamin;
 
 	}
-	
+
 
 	private String generateLipo(int lipo)
 	{
@@ -223,9 +238,13 @@ public class BloodProfile {
 		this.vit = vit;
 	}
 	
-	//to be implemented
 	public String toString(){
-		return "";
+		return "BloodProfile:\n" + lipoproteins + triglycerides + bloodCells + glucose + vitamin;
+	}
+	
+	private int generateInt(int low, int high){
+		Random r = new Random();
+		return r.nextInt(high-low) + low;
 	}
 	
 }

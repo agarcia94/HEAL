@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -9,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.BloodProfile;
 
 /**
  * Servlet implementation class Display
@@ -37,11 +41,13 @@ public class DisplayController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String hello = "Hello World";
-		int x = 3;
-		request.setAttribute("hello", hello);
-		request.setAttribute("x", x);
 		
+		List<BloodProfile> bloodProfiles = new ArrayList<BloodProfile>();
+		for (int i = 0 ; i < 5; i++) {
+			bloodProfiles.add(new BloodProfile());
+		}
+		
+		request.setAttribute("bloodProfiles", bloodProfiles);		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Display.jsp");
 		dispatcher.forward(request, response);
 		
@@ -51,5 +57,6 @@ public class DisplayController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("fuck off");
 	}
 }
