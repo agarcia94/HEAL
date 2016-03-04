@@ -3,9 +3,14 @@ package controller;
 //by Raymond Wu
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.util.Random;
+import java.util.Scanner;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import model.BloodProfile;
+import model.VoiceProcessor;
+import model.VoiceResponse;
 
 @WebServlet("/BloodCheckController")
 @MultipartConfig
@@ -45,6 +52,32 @@ public class BloodCheckController extends HttpServlet
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		VoiceProcessor recordVoice = null;
+		recordVoice = new VoiceProcessor();
+				
+		LocalTime time1 = LocalTime.now();
+		Duration eightSeconds = Duration.ofSeconds(8);
+		
+		recordVoice.captureAudio();
+		
+		while(LocalTime.now().isBefore(time1.plus(eightSeconds))){
+		}
+		
+		recordVoice.stopCapture();
+		
+		VoiceResponse voiceReplay = new VoiceResponse();
+		voiceReplay.setVoiceResult(recordVoice.getVoiceResult());
+		voiceReplay.replayVoiceCommand();
+		
+		if(recordVoice.getVoiceResult().contains("file") || recordVoice.getVoiceResult().contains("generate")){
+			Random rand = new Random();
+			int randInt = rand.nextInt(3)+1;
+			Scanner input = new Scanner(new File("C:\\CS437\\HEAL\\text files\\sample" + randInt+ ".txt"));
+			while(input.hasNext()){
+			
+			}
+		}
+		
 		Part filePart = request.getPart("blood_file");
 		InputStream fileContent = filePart.getInputStream();
 		BufferedReader fileContentReader = new BufferedReader(new InputStreamReader(fileContent));

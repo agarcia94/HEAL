@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 
 import model.BloodProfile;
-import model.BloodStat;
 import model.EmailSender;
 
 import javax.servlet.RequestDispatcher;
