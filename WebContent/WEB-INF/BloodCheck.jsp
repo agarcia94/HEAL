@@ -46,13 +46,16 @@
 				<input type = "file" name = "blood_file" class = "form-horizontal">
 				-->
 				
-				<span class="btn btn-default btn-file">
-					<label for="blood_file">Attach blood sample</label>
-    				<input type="file" name = "blood_file">
-				</span>
+				<!--  
+					<span class="btn btn-default btn-file">
+						<label for="blood_file">Attach blood sample</label>
+    					<input type="file" name = "blood_file">
+					</span>
 				
-				<br>
-				<input type = "submit" value ="Submit" class = "btn btn-primary">
+					<br>
+				-->
+				<p class = "text-justify"><strong>Speak to generate a blood report</strong></p>
+				<input type = "submit" value ="Generate blood report" class = "btn btn-primary">
 			</form>
 		</div>
 	</div>
