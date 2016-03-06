@@ -69,5 +69,9 @@
 
 	
 	</div>
+	
+	<a href="BloodCheckController">Blood Check</a>
+	<a href="CommunicationController">CommunicationController</a>
+	
 </body>
 </html>
