@@ -1,7 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    
- <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>   
+ 
+ 
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,37 +30,46 @@
 	<div class="container">
 		<nav class="navbar navbar-default">
 			<ul class="nav nav-pills">
-				<li><a class="navbar-brand" href="http://localhost:8080/HEAL/MainController">HEAL</a></li>
-				<li class="active"><a href="http://localhost:8080/HEAL/DisplayController">Display</a></li>
-				<li><a href="http://localhost:8080/HEAL/BloodCheckController">Blood Check</a></li>
-				<li><a href="http://localhost:8080/HEAL/CommunicationController">Communication</a></li>
+				<li><a class="navbar-brand" href="MainController">HEAL</a></li>
+				<li class="active"><a href="DisplayController">Display</a></li>
+				<li><a href="BloodCheckController">Blood Check</a></li>
+				<li><a href="CommunicationController">Communication</a></li>
 			</ul>
 		</nav>
 	</div>
 	<div class="container">
-		<table class="table">
-			<tr>
-				<th>lipoproteins (mL)</th>
-				<th>triglycerides (mL)</th>
-				<th>bloodCells (mL)</th>
-				<th>glucose (mL)</th>
-				<th>vitamin (mL)</th>
-				<th>links</th>
-			</tr>
-			<c:forEach items="${bloodProfiles}" var="bloodProfile">
-				<tr>
-					<td>${bloodProfile.lipo}</td>
-					<td>${bloodProfile.tri}</td>
-					<td>${bloodProfile.rbc }</td>
-					<td>${bloodProfile.glu }</td>
-					<td>${bloodProfile.vit }</td>
-					<td><form action="DisplayController" method="post">
-							<input type="hidden" value="bloodProfile" name="bloodProfile" id="bloodProfile"/>
-							<input type="submit" value="Communicate" class="btn btn-primary"/>
-						</form>
-					</td>
-			</c:forEach>
-		</table>
+		<p>Andrew Garcia Blood check Results</p>
 	</div>
+	
+	
+ 
+  <div align="center">
+        <table border="1" cellpadding="5">
+            
+            <tr>
+                <th>Id</th>
+                <th>date</th>
+                <th>Title</th>
+                
+            </tr>
+            <c:forEach  items="${notes}" var="note">
+                <tr>
+                    <td><c:out value="${note.id}" /></td>
+                    <td><c:out value="${note.date}" /></td>
+                    <td><c:out value="${note.title}" /></td>
+                    
+                </tr>
+            </c:forEach>
+            
+            <c:forEach items="${notes}" var="note">
+  			
+						<a href="HealDetails?id=${note.id}"><c:out value="${note.title}"/></a><p>
+	
+   			</c:forEach>
+        </table>
+    </div>
+    
 </body>
+
+
 </html>
