@@ -57,51 +57,51 @@ public class MainController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean validVoice = false;
-		boolean voiceCaptureStarted = false;
-		
-		VoiceProcessor recordVoice = null;
-		recordVoice = new VoiceProcessor();
-				
-		LocalTime time1 = LocalTime.now();
-		Duration eightSeconds = Duration.ofSeconds(8);
-		
-		recordVoice.captureAudio();
-		voiceCaptureStarted = true;
-		request.setAttribute("capture_start", voiceCaptureStarted);
-		
-		while(LocalTime.now().isBefore(time1.plus(eightSeconds))){
-		}
-		
-		recordVoice.stopCapture();
-		
-		VoiceResponse voiceReplay = new VoiceResponse();
-		voiceReplay.setVoiceResult(recordVoice.getVoiceResult());
-		voiceReplay.replayVoiceCommand();
-		
-		
-		if(recordVoice.getVoiceResult().contains("blood") || recordVoice.getVoiceResult().contains("check")){
-			validVoice = true;
-			request.setAttribute("validVoice", validVoice);
-			
-			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
-			voiceReplay.getVoice().allocate();			
-			voiceReplay.getVoice().speak("Valid voice recognized. Moving to blood check.");
-			voiceReplay.getVoice().deallocate();
-			
-			request.getRequestDispatcher("/WEB-INF/BloodCheck.jsp" ).forward(request, response);
-		}
-		else{			
-			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
-			voiceReplay.getVoice().allocate();			
-			voiceReplay.getVoice().speak("Invalid voice command. Try again.");
-			voiceReplay.getVoice().deallocate();
-			
-			request.setAttribute("validVoice", validVoice);
-			doPost(request, response);
-		}
-		
-		request.setAttribute("result", "You said " + recordVoice.getVoiceResult());
+//		boolean validVoice = false;
+//		boolean voiceCaptureStarted = false;
+//		
+//		VoiceProcessor recordVoice = null;
+//		recordVoice = new VoiceProcessor();
+//				
+//		LocalTime time1 = LocalTime.now();
+//		Duration eightSeconds = Duration.ofSeconds(8);
+//		
+//		recordVoice.captureAudio();
+//		voiceCaptureStarted = true;
+//		request.setAttribute("capture_start", voiceCaptureStarted);
+//		
+//		while(LocalTime.now().isBefore(time1.plus(eightSeconds))){
+//		}
+//		
+//		recordVoice.stopCapture();
+//		
+//		VoiceResponse voiceReplay = new VoiceResponse();
+//		voiceReplay.setVoiceResult(recordVoice.getVoiceResult());
+//		voiceReplay.replayVoiceCommand();
+//		
+//		
+//		if(recordVoice.getVoiceResult().contains("blood") || recordVoice.getVoiceResult().contains("check")){
+//			validVoice = true;
+//			request.setAttribute("validVoice", validVoice);
+//			
+//			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
+//			voiceReplay.getVoice().allocate();			
+//			voiceReplay.getVoice().speak("Valid voice recognized. Moving to blood check.");
+//			voiceReplay.getVoice().deallocate();
+//			
+//			request.getRequestDispatcher("/WEB-INF/BloodCheck.jsp" ).forward(request, response);
+//		}
+//		else{			
+//			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
+//			voiceReplay.getVoice().allocate();			
+//			voiceReplay.getVoice().speak("Invalid voice command. Try again.");
+//			voiceReplay.getVoice().deallocate();
+//			
+//			request.setAttribute("validVoice", validVoice);
+//			doPost(request, response);
+//		}
+//		
+//		request.setAttribute("result", "You said " + recordVoice.getVoiceResult());
 
 						
 

@@ -2,11 +2,8 @@ package controller;
 
 //by Raymond Wu
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Random;
@@ -19,7 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+
+import javazoom.jl.decoder.JavaLayerException;
 
 import com.sun.speech.freetts.VoiceManager;
 
@@ -58,18 +56,20 @@ public class BloodCheckController extends HttpServlet
 		recordVoice = new VoiceProcessor();
 				
 		LocalTime time1 = LocalTime.now();
-		Duration eightSeconds = Duration.ofSeconds(8);
+		Duration threeSeconds = Duration.ofSeconds(3);
 		
 		recordVoice.captureAudio();
+		System.out.println("Capturing audio");
 		
-		while(LocalTime.now().isBefore(time1.plus(eightSeconds))){
+		while(LocalTime.now().isBefore(time1.plus(threeSeconds))){
 		}
 		
 		recordVoice.stopCapture();
+		System.out.println("Finished audio capture");
 		
-		VoiceResponse voiceReplay = new VoiceResponse();
-		voiceReplay.setVoiceResult(recordVoice.getVoiceResult());
-		voiceReplay.replayVoiceCommand();
+//		VoiceResponse voiceReplay = new VoiceResponse();
+//		voiceReplay.setVoiceResult(recordVoice.getVoiceResult());
+//		voiceReplay.replayVoiceCommand();
 		
 		if(recordVoice.getVoiceResult().contains("file") || recordVoice.getVoiceResult().contains("generate")
 				|| recordVoice.getVoiceResult().contains("blood") 
@@ -95,24 +95,37 @@ public class BloodCheckController extends HttpServlet
 			int currentUser = 1;
 			
 			BloodProfile current = new BloodProfile (currentUser,lipo,tri,cells,glu,vit);
+			//System.out.println(current);
 			getServletContext().setAttribute("current_profile",current);
 			
 			input.close();
 			
-			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
-			voiceReplay.getVoice().allocate();			
-			voiceReplay.getVoice().speak("Valid voice recognized.Generating blood status report.");
-			voiceReplay.getVoice().deallocate();
+			try {
+				recordVoice.playResponse(recordVoice.getVoiceResult() + "?Okay,generating blood status report.");
+			} catch (JavaLayerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+//			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
+//			voiceReplay.getVoice().allocate();			
+//			voiceReplay.getVoice().speak("Valid voice recognized.Generating blood status report.");
+//			voiceReplay.getVoice().deallocate();
 			
 			request.getRequestDispatcher("/WEB-INF/Communication.jsp" ).forward(request, response);
 		}
 		else{
-			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
-			voiceReplay.getVoice().allocate();			
-			voiceReplay.getVoice().speak("Invalid voice command.Try again.");
-			voiceReplay.getVoice().deallocate();
 			
-			//request.setAttribute("validVoice", validVoice);
+			try {
+				recordVoice.playResponse("Sorry,invalid voice command. Try again.");
+			} catch (JavaLayerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
+//			voiceReplay.getVoice().allocate();			
+//			voiceReplay.getVoice().speak("Invalid voice command.Try again.");
+//			voiceReplay.getVoice().deallocate();
 			doPost(request, response);
 		}
 		

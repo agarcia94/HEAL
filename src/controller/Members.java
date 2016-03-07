@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.*;
+
 @WebServlet("/Heal/Members")
 public class Members extends HttpServlet {
 	private static final long serialVersionUID = 1L;

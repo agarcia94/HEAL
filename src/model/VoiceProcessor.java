@@ -1,84 +1,74 @@
 package model;
 
-import edu.cmu.sphinx.api.Configuration;
-import edu.cmu.sphinx.api.SpeechResult;
-import edu.cmu.sphinx.api.StreamSpeechRecognizer;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import java.io.*;
 
-public class VoiceProcessor {
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.LineUnavailableException;
+
+import sound.*;
+
+public class VoiceProcessor{
+    private SynthesiserV2 synt = new SynthesiserV2("AIzaSyCmuQHi_iRBxQxmfBdHmfYyyZpvpZDuPMM");
+	private javazoom.jl.player.Player  player;
+	private Microphone mic = new Microphone(AudioFileFormat.Type.WAVE);
+	private Recognizer recognizer = new Recognizer("en-US", "AIzaSyCmuQHi_iRBxQxmfBdHmfYyyZpvpZDuPMM");
+   
+    static int fileCounter =1;
+    
+    private String voiceResult;
+    private GoogleResponse response;
 	
-	private String voiceResult;
-	private VoiceCapture capture;
-	private StreamSpeechRecognizer recognizer;
 	
 	public VoiceProcessor(){
 		voiceResult = "";
-		capture = null;
-		recognizer = null;
+		response = null;
+	}
+	
+	public String getVoiceResult(){
+		return voiceResult;
+	}
+	
+	public GoogleResponse getResponse(){
+		return response;
 	}
 	
 	public void captureAudio(){
-//		Scanner sc = new Scanner(System.in);
-//		int choice;
+		mic.open();
 		
-		Configuration configuration = new Configuration();
-		
-        configuration
-                .setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
-        configuration
-                .setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
-        configuration
-                .setLanguageModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us.lm.bin");
-
-        
 		try {
-			recognizer = new StreamSpeechRecognizer(configuration);
-			capture = new VoiceCapture();
-			capture.start();
-			//System.out.println("Please enter your choice: \n1: capture\n2: play");
-			
-		}catch (IOException e){
+			mic.captureAudioToFile("C:\\Users\\Andrew Garcia\\" + fileCounter + ".wave");
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		fileCounter++;
 	}
 	
 	public void stopCapture(){
-		capture.stopped = true;
-		if(!capture.readyToPlay){
-			System.out.println("Processing voice...");
+		mic.close();
+		
+		try {
+			 
+			if(mic.getAudioFile() == null){
+			  playResponse("Cant find audio file");
+			  return;
+			}
+		
+			response = recognizer.getRecognizedDataForWave(mic.getAudioFile());
+			voiceResult = response.getResponse();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		while(!capture.readyToPlay){
-			System.out.println("");
-		}
-		 
-		recognizer.startRecognition(new ByteArrayInputStream(capture.getSound()));
-		SpeechResult printResult =recognizer.getResult();     
-		System.out.format("Hypothesis: %s\n", printResult.getHypothesis());
-		setVoiceResult(printResult.getHypothesis());
-		System.out.println(voiceResult);
-		
-		recognizer.stopRecognition();
 	}
+
 	
-	public String getVoiceResult() {
-		return voiceResult;
-	}
-
-	public void setVoiceResult(String voiceResult) {
-		this.voiceResult = voiceResult;
-	}
-	
-	public VoiceCapture getCapture(){
-		return capture;
-	}
-
-	 
-
-		
-	        
+	 public void playResponse(String text) throws IOException, JavaLayerException{
+		BufferedInputStream  bis = new BufferedInputStream(synt.getMP3Data(text));
+		player = new Player(bis);
+		player.play();
+	 }
 }
-
-
-

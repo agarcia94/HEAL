@@ -6,30 +6,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Main</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	<div class = "container">
 		<div class="page-header">
-        	<h1>HEAL: Blood Check Analysis  <small>Welcome!</small></h1>        	
+        	<h1>HEAL: Blood Check Analysis  <small>Welcome ${user }!</small></h1>        	
         </div>
         
         <div class = "row">
         	<div class="col-md-6">
-        		<form action = "MainController" method = "post" class = "form-horizontal">
-      				<p class = "text-justify">
-      					<strong>Verbally state what you would like to do today</strong>
-      				</p>
-      		
-      				<input type = "submit" value ="Start voice recognition" class = "btn btn-primary">
-      			</form>
-        	</div>
-        	
-        	<div class="col-md-6">
-        		<p class = "help-block">
-      				Wait three seconds before speaking as the system is getting configured. This also<br>
-      				applies if voice recognition needs to restart due to an invalid voice command.
+     
+      			<p class = "text-justify">
+      				<strong>What would you like to do today ${user }</strong>
       			</p>
+      		
+  				<div class="dropdown">
+    				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Menu Choices
+    					<span class="caret"></span></button>
+   					
+   					 <ul class="dropdown-menu">
+    					<li><a href="BloodCheckController">Blood Check</a></li>
+      					<li><a href="DisplayController">User Profile</a></li>
+       				</ul>
+  				</div>
+        	
         	</div>
         </div>
         

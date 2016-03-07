@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -19,6 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import model.*;
 
 @WebServlet("/MyHeal")
 public class MyHeal extends HttpServlet {
@@ -96,34 +97,33 @@ public class MyHeal extends HttpServlet {
             int count = rs.getInt("count");
             int id = rs.getInt("id");
             
-            System.out.print("hello");
+            //System.out.print("hello");
             if (count == 1){
-            	
-            HttpSession session = request.getSession();
-    		session.setAttribute("CurrentUser", username);
-    		session.setAttribute("userId", id);
+            	HttpSession session = request.getSession();
+            	session.setAttribute("CurrentUser", username);
+            	session.setAttribute("userId", id);
     		
-    		String sql2 = "SELECT * FROM notes WHERE owner = (select id from users where email='" + username + "' and password = '" + password + "')";
+            	String sql2 = "SELECT * FROM notes WHERE owner = (select name from HealUsers where email='" + username + "' and password = '" + password + "')";
     	
-    		rs = stmt.executeQuery( sql2 );
+            	rs = stmt.executeQuery( sql2 );
     		
-    		while( rs.next() )
-            {
-    			System.out.print("got notes");
-                Heal note = new Heal();
-                note.setId( rs.getInt( "id" ) );
-                note.setTitle( rs.getString( "title" ) );
-                note.setNotes( rs.getString( "notes" ) );
+            	while( rs.next() )
+            	{
+            		System.out.print("got notes");
+            		Heal note = new Heal();
+            		note.setId( rs.getInt( "id" ) );
+            		note.setTitle( rs.getString( "title" ) );
+            		note.setNotes( rs.getString( "notes" ) );
                
-                notes.add( note );
-            }
+            		notes.add( note );
+            	}
     		
             }
-            
             else{
             	//String insertuser = "INSERT INTO  `notes`.`users` (`id` , `email` , `password` )VALUES ( NULL , '" + username + "' ,  '" + password +"')";
             	//stmt.execute( insertuser );
-            	String insertuser = "INSERT INTO  `cs320stu02`.`users` (`id` , `email` , `password` )VALUES ( NULL , '" + username + "' ,  '" + password +"')";
+            	String insertuser = "INSERT INTO  `cs320stu02`.`HealUsers` (`id` , `email` , `password`, `name` )"
+            						+ "VALUES ( NULL , '" + username + "' ,  '" + password + "' ,'" + "' '" + "')";
             	stmt.execute( insertuser );
 
             }
@@ -146,6 +146,7 @@ public class MyHeal extends HttpServlet {
         }
         
         request.setAttribute( "notes", notes );
+        request.setAttribute("user", username);
         request.getRequestDispatcher( "/WEB-INF/main.jsp" ).forward(
             request, response );
     }

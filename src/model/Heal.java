@@ -17,7 +17,7 @@ public class Heal {
   
   String notes;
 
- 
+  
   public Heal()
   	{
   		}
