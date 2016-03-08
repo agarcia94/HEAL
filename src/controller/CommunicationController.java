@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import model.BloodProfile;
 import model.EmailSender;
+import model.VoiceProcessor;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -12,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import javazoom.jl.decoder.JavaLayerException;
 
 /**
  * Servlet implementation class CommunicationController
@@ -31,7 +34,7 @@ public class CommunicationController extends HttpServlet {
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
-	public void init(ServletConfig config) throws ServletException {
+	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		
 //		if(this.getServletContext().getAttribute("current_profile") == null)
@@ -49,7 +52,7 @@ public class CommunicationController extends HttpServlet {
 		BloodProfile b = (BloodProfile) (this.getServletContext().getAttribute("current_profile"));
 		String message = "Greetings,\n\nThis a message from HEAL Blood check system.\n\nUser x's " 
 							+ b.toString() + "\n\nHave a nice day human,\nHEAL";		
-		request.setAttribute("BloodStatResult", this.getServletContext().getAttribute("current_profile"));
+		request.setAttribute("BloodStatResult", b);
 		request.setAttribute("emailMessage", message);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Communication.jsp");
 		dispatcher.forward(request, response);
@@ -64,6 +67,15 @@ public class CommunicationController extends HttpServlet {
 		String sendAddress = (String) request.getParameter("emailAddress");
 		String sendMessage = (String) request.getParameter("emailMessage");
 		emailSender.send(sendAddress, sendMessage);
+		
+		VoiceProcessor voiceResponse = new VoiceProcessor();
+		try {
+			voiceResponse.playResponse("Sent message successfully");
+		} catch (JavaLayerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Display.jsp");
 		dispatcher.forward(request, response);
 	}

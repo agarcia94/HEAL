@@ -106,11 +106,7 @@ public class BloodCheckController extends HttpServlet
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-//			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
-//			voiceReplay.getVoice().allocate();			
-//			voiceReplay.getVoice().speak("Valid voice recognized.Generating blood status report.");
-//			voiceReplay.getVoice().deallocate();
+
 			
 			request.getRequestDispatcher("/WEB-INF/Communication.jsp" ).forward(request, response);
 		}
@@ -122,10 +118,7 @@ public class BloodCheckController extends HttpServlet
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			voiceReplay.setVoice(VoiceManager.getInstance().getVoice("kevin16"));
-//			voiceReplay.getVoice().allocate();			
-//			voiceReplay.getVoice().speak("Invalid voice command.Try again.");
-//			voiceReplay.getVoice().deallocate();
+
 			doPost(request, response);
 		}
 		

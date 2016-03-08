@@ -11,19 +11,21 @@
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 </head>
+
 <body>
+	
 	<div class = "container">
 		<div class="page-header">
-        	<h1>HEAL: Blood Check Analysis  <small>Welcome ${user }!</small></h1>        	
+        	<h1>HEAL: Blood Check Analysis  <small>Welcome ${username }!</small></h1>        	
         </div>
         
         <div class = "row">
         	<div class="col-md-6">
      
       			<p class = "text-justify">
-      				<strong>What would you like to do today ${user }</strong>
+      				<strong>Hello ${username}! What would you like to do today?</strong>
       			</p>
       		
   				<div class="dropdown">
@@ -37,43 +39,44 @@
   				</div>
         	
         	</div>
-        </div>
         
-        <div class = "row">
-        	<div class = "col-md-6">
-        		<p class= "lead">${result }</p>
-        	</div>
-        </div>
-      	
-
-      	
-
-      	
-      	
-      	<!--  
-      		<c:if test = "${capture_start }">
-     			<p class = "text-justify">
-      				<strong>Capture starting, wait about three seconds before speaking</strong>
+        
+      		<div class = "col-md-6">
+      			<p class= "lead">
+      				<small>
+      					You may vocally state to which module you want to navigate to or 
+        				you can manually choose an option from the dropdown menu provided.
+      				</small>
       			</p>
-      		</c:if>
-      	-->
-
-      	
-      	 
-
+      		</div>
+      		
+      </div>
       
-
+	 </br>
+     </br>
       	
-      	<!--  
-      	    <c:if test="${!validVoice }">
+     <div class = "row">
+     	<form action = "MainController" method = "get">
+      		<div class = "form-group col-md-4">
       			<p class = "text-justify">
-      				<strong>Restarting the voice capture...</strong>
+      				<strong>Click here and state your command</strong>
       			</p>
-      		</c:if>
-      	-->
+      			
+     			<input type = "submit" class= "btn btn-success" value = "Start voice recognition">
+      		</div>
+      	</form>
+      </div>
 
-
-	
 	</div>
+	
+	<script>
+		responsiveVoice.OnVoiceReady = function() {
+		  console.log("speech time?");
+		  responsiveVoice.setDefaultVoice("US English Female");
+		  responsiveVoice.speak("Hello " + '${username}' + "!What would you like to do today?" +
+				  "You may vocally state to which module you want to navigate to " + 
+				  "or you can manually choose an option from the dropdown menu provided.");
+		};
+	</script>
 </body>
 </html>

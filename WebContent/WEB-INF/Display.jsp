@@ -38,7 +38,7 @@
 		</nav>
 	</div>
 	<div class="container">
-		<p>Andrew Garcia Blood check Results</p>
+		<p>${user} Blood check Results</p>
 	</div>
 	
 	
@@ -48,24 +48,25 @@
             
             <tr>
                 <th>Id</th>
-                <th>date</th>
-                <th>Title</th>
+                <th>Lipo</th>
+                <th>Tri</th>
+                <th>Rbc</th>
+                <th>Glu</th>
+                <th>vit</th>
                 
             </tr>
-            <c:forEach  items="${notes}" var="note">
+            
+            <c:forEach  items="${bloodProfiles}" var="profile">
                 <tr>
-                    <td><c:out value="${note.id}" /></td>
-                    <td><c:out value="${note.date}" /></td>
-                    <td><c:out value="${note.title}" /></td>
-                    
+                    <td><c:out value="${profile.userID}" /></td>
+                    <td><c:out value="${profile.lipo}" /></td>
+                    <td><c:out value="${profile.tri}" /></td>
+                    <td><c:out value="${profile.rbc }"/></td>
+                    <td><c:out value="${profile.glu }"/></td>
+                    <td><c:out value="${profile.vit }"/></td>
                 </tr>
             </c:forEach>
-            
-            <c:forEach items="${notes}" var="note">
-  			
-						<a href="HealDetails?id=${note.id}"><c:out value="${note.title}"/></a><p>
-	
-   			</c:forEach>
+
         </table>
     </div>
     

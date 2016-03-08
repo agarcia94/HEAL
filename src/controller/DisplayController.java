@@ -32,7 +32,7 @@ public class DisplayController extends HttpServlet {
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
-	public void init(ServletConfig config) throws ServletException {
+	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 	}
 
@@ -42,12 +42,13 @@ public class DisplayController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		List<BloodProfile> bloodProfiles = new ArrayList<BloodProfile>();
-		for (int i = 0 ; i < 5; i++) {
-			bloodProfiles.add(new BloodProfile());
-		}
+//		List<BloodProfile> bloodProfiles = new ArrayList<BloodProfile>();
+//		for (int i = 0 ; i < 5; i++) {
+//			bloodProfiles.add(new BloodProfile());
+//		}
 		
-		request.setAttribute("bloodProfiles", bloodProfiles);		
+		request.setAttribute("bloodProfiles", this.getServletContext().getAttribute("bloodProfiles"));	
+		request.setAttribute("user", this.getServletContext().getAttribute("user"));
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Display.jsp");
 		dispatcher.forward(request, response);
 		
@@ -57,6 +58,7 @@ public class DisplayController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("fuck off");
+		//System.out.println("fuck off");
+		doGet(request,response);
 	}
 }

@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,6 +50,7 @@ public class MyHeal extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
     }
 
     protected void doGet( HttpServletRequest request,
@@ -74,11 +73,17 @@ public class MyHeal extends HttpServlet {
     protected void doPost( HttpServletRequest request,
         HttpServletResponse response ) throws ServletException, IOException
     {
-        List<Heal> notes = new ArrayList<Heal>();
+        //List<Heal> notes = new ArrayList<Heal>();
+    	ArrayList<BloodProfile> profiles= new ArrayList<BloodProfile>();
 
         String username = request.getParameter( "username" );
         String password = request.getParameter( "password" );
-        String sql = "SELECT COUNT( id ) AS count, id AS id   FROM users WHERE email = '"+ username +"' AND password = '" + password + "' ";
+        
+//        if(this.getServletContext().getAttribute("user") == null)
+//        	this.getServletContext().setAttribute("user", username);
+        
+        
+        String sql = "SELECT COUNT( id ) AS count, id AS id FROM HealUsers WHERE email = '"+ username +"' AND password = '" + password + "' ";
         
         Connection c = null;
         try
@@ -89,39 +94,45 @@ public class MyHeal extends HttpServlet {
             
             c = DriverManager.getConnection( url, username1, password1 );
         	
-        	
-        	
-           Statement stmt = c.createStatement();
-           ResultSet rs = stmt.executeQuery( sql );
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( sql );
             rs.next();
             int count = rs.getInt("count");
             int id = rs.getInt("id");
             
             //System.out.print("hello");
-            if (count == 1){
+            if (count == 1){ //if user exists in HealUsers database
             	HttpSession session = request.getSession();
             	session.setAttribute("CurrentUser", username);
             	session.setAttribute("userId", id);
     		
-            	String sql2 = "SELECT * FROM notes WHERE owner = (select name from HealUsers where email='" + username + "' and password = '" + password + "')";
+            	String sql2 = "SELECT * FROM BloodProfile WHERE userId = (select id from HealUsers where email='" + username + "' and password = '" + password + "')";
     	
             	rs = stmt.executeQuery( sql2 );
     		
             	while( rs.next() )
             	{
-            		System.out.print("got notes");
-            		Heal note = new Heal();
-            		note.setId( rs.getInt( "id" ) );
-            		note.setTitle( rs.getString( "title" ) );
-            		note.setNotes( rs.getString( "notes" ) );
-               
-            		notes.add( note );
+            		System.out.print("got blood profiles");
+//            		Heal note = new Heal();
+//            		note.setId( rs.getInt( "id" ) );
+//            		note.setTitle( rs.getString( "title" ) );
+//            		note.setNotes( rs.getString( "notes" ) );
+//               
+//            		notes.add( note );
+            		BloodProfile profile = new BloodProfile(rs.getInt("id"), 
+            				rs.getInt("lipo"), rs.getInt("tri"), rs.getInt("rbc"), rs.getInt("glu"),
+            				rs.getInt("vit"));
+            		
+            		profiles.add(profile);
             	}
     		
             }
-            else{
+            else{// if user does not exist in the HealUsers database
+            	//create a new entry in the database
+            	
             	//String insertuser = "INSERT INTO  `notes`.`users` (`id` , `email` , `password` )VALUES ( NULL , '" + username + "' ,  '" + password +"')";
             	//stmt.execute( insertuser );
+            	
             	String insertuser = "INSERT INTO  `cs320stu02`.`HealUsers` (`id` , `email` , `password`, `name` )"
             						+ "VALUES ( NULL , '" + username + "' ,  '" + password + "' ,'" + "' '" + "')";
             	stmt.execute( insertuser );
@@ -145,10 +156,13 @@ public class MyHeal extends HttpServlet {
             }
         }
         
-        request.setAttribute( "notes", notes );
+        request.setAttribute("bloodProfiles", profiles);
         request.setAttribute("user", username);
-        request.getRequestDispatcher( "/WEB-INF/main.jsp" ).forward(
-            request, response );
+//        request.getRequestDispatcher( "/WEB-INF/main.jsp" ).forward(
+//            request, response );
+        
+        request.getRequestDispatcher("/MainController").forward(request,response);
+        
     }
 
 }
