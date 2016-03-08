@@ -16,7 +16,7 @@
 	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" 
 	crossorigin="anonymous">
 
-
+<script src="https://code.responsivevoice.org/responsivevoice.js"></script>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -38,7 +38,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<label for="emailAddress">To email your results, enter the email address here</label>				
-				<form action="CommunicationController" method="post">
+				<form action="CommunicationController" method="get">
 					<input type="text" value="Example@email.com" name="emailAddress"/>
 					<input type="hidden" value="${emailMessage }" name="emailMessage"/>
 					<input type="submit" value="Send email"/>
@@ -49,9 +49,26 @@
 			<div class="col-md-6">
 				<h3>Your results</h3>
 				<table class="table">
-					<c:forEach items="${ BloodStatResult.stats }" var="stat">
-						<tr><th>${ stat.key }</th><td>${stat.value }</td></tr>
-					</c:forEach>
+            		<tr>
+                		<th>Id</th>
+                		<th>Lipo</th>
+                		<th>Tri</th>
+                		<th>Rbc</th>
+                		<th>Glu</th>
+                		<th>vit</th>
+           			</tr>
+           			
+           			<tr>
+           				<td><c:out value="${BloodStatResult.userID}" /></td>
+                    	<td><c:out value="${BloodStatResult.lipo}" /></td>
+                    	<td><c:out value="${BloodStatResult.tri}" /></td>
+                    	<td><c:out value="${BloodStatResult.rbc }"/></td>
+                    	<td><c:out value="${BloodStatResult.glu }"/></td>
+                    	<td><c:out value="${BloodStatResult.vit }"/></td>
+           			</tr>
+           			
+
+
 				</table>
 			</div>
 		</div>
@@ -67,6 +84,14 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		responsiveVoice.OnVoiceReady = function() {
+		  console.log("speech time?");
+		  responsiveVoice.setDefaultVoice("US English Female");
+		  responsiveVoice.speak("Here is a preview of the message that will be sent.${emailMessage}");
+		};
+	</script>
 </body>
 
 <!-- Latest compiled and minified JavaScript -->

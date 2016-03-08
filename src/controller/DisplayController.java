@@ -47,7 +47,7 @@ public class DisplayController extends HttpServlet {
 //			bloodProfiles.add(new BloodProfile());
 //		}
 		
-		request.setAttribute("bloodProfiles", this.getServletContext().getAttribute("bloodProfiles"));	
+		request.setAttribute("bloodProfiles", request.getSession().getAttribute("bloodProfiles"));	
 		request.setAttribute("user", this.getServletContext().getAttribute("user"));
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Display.jsp");
 		dispatcher.forward(request, response);

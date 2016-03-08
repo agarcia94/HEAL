@@ -112,7 +112,7 @@ public class MyHeal extends HttpServlet {
     		
             	while( rs.next() )
             	{
-            		System.out.print("got blood profiles");
+            		System.out.println("got blood profile");
 //            		Heal note = new Heal();
 //            		note.setId( rs.getInt( "id" ) );
 //            		note.setTitle( rs.getString( "title" ) );
@@ -136,6 +136,13 @@ public class MyHeal extends HttpServlet {
             	String insertuser = "INSERT INTO  `cs320stu02`.`HealUsers` (`id` , `email` , `password`, `name` )"
             						+ "VALUES ( NULL , '" + username + "' ,  '" + password + "' ,'" + "' '" + "')";
             	stmt.execute( insertuser );
+            	
+            	String query = "select id from HealUsers where name IS NULL";
+            	ResultSet results = stmt.executeQuery(query);
+            	results.last(); //move to recently inserted record
+            	request.getSession().setAttribute("userId", results.getInt("id"));
+            	
+            	System.out.println("Creating new entry in HealUsers");
 
             }
     		
@@ -156,7 +163,7 @@ public class MyHeal extends HttpServlet {
             }
         }
         
-        request.setAttribute("bloodProfiles", profiles);
+        request.getSession().setAttribute("bloodProfiles", profiles);
         request.setAttribute("user", username);
 //        request.getRequestDispatcher( "/WEB-INF/main.jsp" ).forward(
 //            request, response );

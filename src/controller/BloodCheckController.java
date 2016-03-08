@@ -4,8 +4,12 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -71,7 +75,7 @@ public class BloodCheckController extends HttpServlet
 //		voiceReplay.setVoiceResult(recordVoice.getVoiceResult());
 //		voiceReplay.replayVoiceCommand();
 		
-		if(recordVoice.getVoiceResult().contains("file") || recordVoice.getVoiceResult().contains("generate")
+		if(recordVoice.getVoiceResult().contains("generate")
 				|| recordVoice.getVoiceResult().contains("blood") 
 				|| recordVoice.getVoiceResult().contains("report")){
 			Random rand = new Random();
@@ -88,15 +92,44 @@ public class BloodCheckController extends HttpServlet
 			
 			int lipo = Integer.parseInt(values[0]);
 			int tri = Integer.parseInt(values[1]);
-			int cells = Integer.parseInt(values[2]);
+			int rbc = Integer.parseInt(values[2]);
 			int glu = Integer.parseInt(values[3]);
 			int vit = Integer.parseInt(values[4]);
 			
-			int currentUser = 1;
+			//int currentUser = 1;
+			int userID = (int)(request.getSession().getAttribute("userId"));
 			
-			BloodProfile current = new BloodProfile (currentUser,lipo,tri,cells,glu,vit);
+			Connection c = null;
+			try{
+	        	String url = "jdbc:mysql://cs3.calstatela.edu:3306/cs320stu02";
+	            String username1= "cs320stu02";
+	            String password1 = "8W!tefx3";
+	            
+	            c = DriverManager.getConnection( url, username1, password1 );
+	        	
+	            Statement stmt = c.createStatement();
+	            
+	            String insertProfile = "INSERT INTO  `cs320stu02`.`BloodProfile` (`id` , `userId` , `lipo`, `tri`,"
+	            		+ "`rbc`, `glu`, `vit`)"
+						+ "VALUES ( NULL , '" + userID + "' ,  '" + lipo + "' ,'" + tri + "' , '" + rbc + "' , '" 
+	            		+ glu + "' , '" + vit + "')";
+	            
+	            stmt.execute(insertProfile);
+	            VoiceProcessor voice = new VoiceProcessor();
+	            voice.playResponse("Blood profile inserted into database");
+	            //System.out.println("Blood profile inserted into database");
+	            
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			BloodProfile current = new BloodProfile (userID,lipo,tri,rbc,glu,vit);
 			//System.out.println(current);
 			getServletContext().setAttribute("current_profile",current);
+			
+			ArrayList<BloodProfile> profiles = (ArrayList<BloodProfile>) (request.getSession().getAttribute("bloodProfiles"));
+			profiles.add(current);
+			request.getSession().setAttribute("bloodProfiles", profiles);
 			
 			input.close();
 			
@@ -108,7 +141,8 @@ public class BloodCheckController extends HttpServlet
 			}
 
 			
-			request.getRequestDispatcher("/WEB-INF/Communication.jsp" ).forward(request, response);
+			//request.getRequestDispatcher("/WEB-INF/Communication.jsp" ).forward(request, response);
+			request.getRequestDispatcher("/CommunicationController" ).forward(request, response);
 		}
 		else{
 			

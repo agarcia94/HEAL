@@ -85,7 +85,8 @@ public class MainController extends HttpServlet {
 			
 			//user attribute retrieved from MyHeal
 			//username attribute used for main.jsp
-			request.setAttribute("username", this.getServletContext().getAttribute("user"));
+			this.getServletContext().setAttribute("user", this.getServletContext().getAttribute("user"));
+			//request.setAttribute("username", this.getServletContext().getAttribute("user"));
 			//request.setAttribute("bloodProfiles", request.getAttribute("bloodProfiles"));
 			request.getRequestDispatcher("/DisplayController").forward(request, response);
 		}
@@ -98,7 +99,7 @@ public class MainController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("username", request.getAttribute("user")); //for the jsp to reference
 		this.getServletContext().setAttribute("user", request.getAttribute("user")); //useful for display module
-		this.getServletContext().setAttribute("bloodProfiles", request.getAttribute("bloodProfiles")); //useful for display module
+		//this.getServletContext().setAttribute("bloodProfiles", request.getAttribute("bloodProfiles")); //useful for display module
 		request.getRequestDispatcher("/WEB-INF/main.jsp").forward(request, response);
 		
 	}

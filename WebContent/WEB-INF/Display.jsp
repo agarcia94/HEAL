@@ -53,8 +53,7 @@
                 <th>Rbc</th>
                 <th>Glu</th>
                 <th>vit</th>
-                
-            </tr>
+           </tr>
             
             <c:forEach  items="${bloodProfiles}" var="profile">
                 <tr>

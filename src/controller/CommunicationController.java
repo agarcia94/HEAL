@@ -48,27 +48,13 @@ public class CommunicationController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//BloodStat b = new BloodStat();
-		BloodProfile b = (BloodProfile) (this.getServletContext().getAttribute("current_profile"));
-		String message = "Greetings,\n\nThis a message from HEAL Blood check system.\n\nUser x's " 
-							+ b.toString() + "\n\nHave a nice day human,\nHEAL";		
-		request.setAttribute("BloodStatResult", b);
-		request.setAttribute("emailMessage", message);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Communication.jsp");
-		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		VoiceProcessor voiceResponse = new VoiceProcessor();
 		EmailSender emailSender = new EmailSender();
 		String sendAddress = (String) request.getParameter("emailAddress");
 		String sendMessage = (String) request.getParameter("emailMessage");
 		emailSender.send(sendAddress, sendMessage);
 		
-		VoiceProcessor voiceResponse = new VoiceProcessor();
+		
 		try {
 			voiceResponse.playResponse("Sent message successfully");
 		} catch (JavaLayerException e) {
@@ -77,6 +63,22 @@ public class CommunicationController extends HttpServlet {
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Display.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		BloodProfile b = (BloodProfile) (this.getServletContext().getAttribute("current_profile"));
+		String message = "Greetings,\n\nThis a message from HEAL Blood check system.\n\nUser x's " 
+							+ b.toString() + "\n\nHave a nice day human,\nHEAL";		
+		request.setAttribute("BloodStatResult", b);
+		request.setAttribute("emailMessage", message);
+		
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Communication.jsp");
 		dispatcher.forward(request, response);
 	}
 }
